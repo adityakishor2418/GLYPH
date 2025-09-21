@@ -34,7 +34,7 @@ japanese-romanizer-extension
    ```
    git clone https://github.com/jikyo/romaji4j.git
    ```
-2. Navigate to the `japanese-romanizer-extension` directory.
+2. Navigate to the `GLYPH SourceCode` directory.
 3. Open Chrome and go to `chrome://extensions/`.
 4. Enable "Developer mode" in the top right corner.
 5. Click on "Load unpacked" and select the `japanese-romanizer-extension` directory.
