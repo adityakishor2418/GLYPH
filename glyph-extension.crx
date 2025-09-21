@@ -1,9 +1,0 @@
-This is a placeholder for the GLYPH Chrome Extension.
-In a real scenario, this would be the actual .crx file containing the extension.
-
-To create a real Chrome extension:
-1. Create a manifest.json file with extension details
-2. Create the necessary JavaScript files for the extension functionality  
-3. Package it as a .crx file using Chrome Extension tools
-
-This file will trigger an automatic download when users click the download button.
