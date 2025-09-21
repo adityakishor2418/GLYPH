@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "Japanese Romanizer",
+  "version": "1.0",
+  "description": "Transliterates Japanese text to romaji",
+  "permissions": [
+    "activeTab"
+  ],
+  "background": {
+    "service_worker": "src/background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["src/romaji4j.js", "src/content.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "action": {
+    "default_popup": "src/popup.html"
+  }
+}
