@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Text Assistant Test Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+        }
+        .highlight {
+            background-color: #ffffcc;
+            padding: 2px 4px;
+        }
+        .instructions {
+            background-color: #f0f8ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>AI Text Assistant Test Page</h1>
+    
+    <div class="instructions">
+        <h3>🧪 Testing Instructions:</h3>
+        <ol>
+            <li><strong>Click the AI Text Assistant icon</strong> in your browser toolbar</li>
+            <li><strong>Enter your Gemini API key</strong> and save it</li>
+            <li><strong>Click "Enable Auto Transliteration"</strong></li>
+            <li><strong>Watch ALL text on this page</strong> get automatically transliterated!</li>
+            <li><strong>Refresh the page</strong> to see the original text again</li>
+        </ol>
+        <p><strong>Note:</strong> Auto transliteration will process ALL text on the page automatically!</p>
+    </div>
+
+    <div class="test-section">
+        <h2>📝 Test Section 1: Simple Text</h2>
+        <p>This is a simple paragraph for testing. Select this text and use the AI Text Assistant to summarize, translate, or improve it. The extension should only process the text you select, not the entire page.</p>
+    </div>
+
+    <div class="test-section">
+        <h2>🌍 Test Section 2: Multilingual Text</h2>
+        <p>Here's some text in different languages: Hello world! Bonjour le monde! Hola mundo! 你好世界! Select any part of this text to test translation functionality.</p>
+    </div>
+
+    <div class="test-section">
+        <h2>📚 Test Section 3: Complex Content</h2>
+        <p>Artificial intelligence (AI) is intelligence demonstrated by machines, in contrast to the natural intelligence displayed by humans and animals. Leading AI textbooks define the field as the study of "intelligent agents": any device that perceives its environment and takes actions that maximize its chance of successfully achieving its goals. Select this paragraph to test summarization or explanation features.</p>
+    </div>
+
+    <div class="test-section">
+        <h2>🔧 Debug Information</h2>
+        <p>Open Chrome DevTools (F12) and check the Console tab for debug messages. You should see:</p>
+        <ul>
+            <li>"🤖 AI Text Assistant initialized - NO automatic transliteration"</li>
+            <li>"✅ AI Text Assistant ready - only processes SELECTED text"</li>
+            <li>"📝 Selected text: [your selected text]" when you select text</li>
+        </ul>
+    </div>
+
+    <script>
+        // Add some debugging
+        console.log('🧪 Test page loaded');
+        console.log('📋 Instructions: Select text and use the AI Text Assistant extension');
+        
+        // Check if extension is loaded
+        setTimeout(() => {
+            if (typeof chrome !== 'undefined' && chrome.runtime) {
+                console.log('✅ Chrome extension API available');
+            } else {
+                console.log('❌ Chrome extension API not available');
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

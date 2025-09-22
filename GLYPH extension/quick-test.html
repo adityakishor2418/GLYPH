@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚡ Quick Extension Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-box {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+        .instructions {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="instructions">
+        <h2>⚡ Quick Extension Test</h2>
+        <ol>
+            <li><strong>Reload the extension</strong> in Chrome (chrome://extensions)</li>
+            <li><strong>Click the extension icon</strong> and turn ON auto transliteration</li>
+            <li><strong>Type in the fields below</strong> - should process instantly!</li>
+        </ol>
+    </div>
+
+    <div class="test-box">
+        <h3>Test Input Field</h3>
+        <input type="text" placeholder="Type here... should transliterate instantly!">
+    </div>
+
+    <div class="test-box">
+        <h3>Test Text Area</h3>
+        <textarea rows="4" placeholder="Type multiple lines here..."></textarea>
+    </div>
+
+    <div class="test-box">
+        <h3>Test Text Content</h3>
+        <p>Hello, this is some text that should be processed when auto-transliteration is enabled.</p>
+        <p>Type some text in Hindi: नमस्ते आप कैसे हैं?</p>
+        <p>Type some text in Spanish: ¡Hola! ¿Cómo estás?</p>
+    </div>
+
+    <div class="test-box">
+        <h3>Editable Content</h3>
+        <div contenteditable="true" style="border: 1px solid #ddd; padding: 10px; min-height: 60px; background: #fafafa;">
+            Click here and type... this should also work with instant transliteration!
+        </div>
+    </div>
+
+    <script>
+        console.log('⚡ Test page loaded - Extension should process text instantly!');
+        
+        // Add some visual feedback
+        const inputs = document.querySelectorAll('input, textarea, [contenteditable]');
+        inputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                console.log('✅ Input focused - ready for instant processing');
+            });
+        });
+    </script>
+</body>
+</html>
