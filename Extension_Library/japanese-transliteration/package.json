@@ -1,0 +1,25 @@
+{
+  "name": "japanese-transliteration-library",
+  "version": "1.0.0",
+  "description": "A comprehensive JavaScript library for transliterating Japanese text to English pronunciation",
+  "main": "src/transliterator.js",
+  "type": "module",
+  "scripts": {
+    "test": "node examples/test.js",
+    "build": "node build.js"
+  },
+  "keywords": [
+    "japanese",
+    "transliteration", 
+    "romaji",
+    "hiragana",
+    "katakana",
+    "kanji",
+    "web",
+    "nodejs"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {},
+  "dependencies": {}
+}

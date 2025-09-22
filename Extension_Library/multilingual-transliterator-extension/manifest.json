@@ -1,0 +1,39 @@
+{
+    "manifest_version": 3,
+    "name": "Enhanced Multilingual Transliterator",
+    "version": "2.0.0",
+    "description": "Automatically detect and transliterate text from 9 major writing systems (Arabic, Russian, Japanese, Chinese, Korean, Hindi, Greek, Hebrew, Thai) on any webpage in real-time with phonetic Latin conversion",
+    
+    "permissions": [
+        "activeTab",
+        "storage",
+        "scripting"
+    ],
+    
+    "host_permissions": [
+        "<all_urls>"
+    ],
+    
+    "background": {
+        "service_worker": "background.js"
+    },
+    
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": [
+                "libs/devanagari-transliterator.js",
+                "libs/korean-transliterator.js", 
+                "libs/thai-transliterator.js",
+                "libs/transliterator-suite.js",
+                "simple-transliterator.js"
+            ],
+            "run_at": "document_idle"
+        }
+    ],
+    
+    "action": {
+        "default_popup": "popup/popup.html",
+        "default_title": "Enhanced Multilingual Transliterator"
+    }
+}

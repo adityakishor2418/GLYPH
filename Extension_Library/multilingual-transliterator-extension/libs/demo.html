@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Transliteration Libraries Demo</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 30px;
+        }
+        
+        .demo-section {
+            margin: 30px 0;
+            padding: 20px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            background: #f8f9fa;
+        }
+        
+        .demo-section h2 {
+            color: #495057;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .input-group {
+            margin: 15px 0;
+        }
+        
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #495057;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        textarea {
+            height: 80px;
+            resize: vertical;
+        }
+        
+        button {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        
+        .result {
+            background: #e8f5e8;
+            border: 1px solid #28a745;
+            border-radius: 4px;
+            padding: 15px;
+            margin-top: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+            min-height: 50px;
+        }
+        
+        .stats {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 4px;
+            padding: 10px;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        
+        .scheme-info {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 4px;
+            padding: 10px;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        
+        .error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        
+        .sample-texts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .sample-text {
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .sample-text:hover {
+            border-color: #667eea;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .sample-text h4 {
+            margin: 0 0 10px 0;
+            color: #667eea;
+        }
+        
+        .sample-original {
+            font-size: 18px;
+            margin: 8px 0;
+            direction: auto;
+        }
+        
+        .sample-romanized {
+            font-style: italic;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌍 Enhanced Transliteration Libraries Demo</h1>
+        
+        <!-- Auto-Detection Demo -->
+        <div class="demo-section">
+            <h2>🔍 Auto-Detection & Transliteration</h2>
+            <div class="input-group">
+                <label>Enter text in Devanagari, Korean, or Thai:</label>
+                <textarea id="autoInput" placeholder="Type or paste text here... (e.g., नमस्ते 안녕하세요 สวัสดี)"></textarea>
+                <button onclick="autoTransliterate()">Auto-Transliterate</button>
+            </div>
+            <div id="autoResult" class="result"></div>
+            <div id="autoStats" class="stats"></div>
+        </div>
+
+        <!-- Devanagari Demo -->
+        <div class="demo-section">
+            <h2>🇮🇳 Devanagari (Hindi/Sanskrit) Transliteration</h2>
+            <div class="input-group">
+                <label>Romanization Scheme:</label>
+                <select id="devanagariScheme" onchange="updateSchemeInfo('devanagari')">
+                    <option value="iast">IAST (International Alphabet)</option>
+                    <option value="harvard">Harvard-Kyoto</option>
+                    <option value="simplified">Simplified</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>Devanagari Text:</label>
+                <textarea id="devanagariInput" placeholder="देवनागरी पाठ यहाँ लिखें..."></textarea>
+                <button onclick="transliterateDevanagari()">Transliterate</button>
+            </div>
+            <div id="devanagariResult" class="result"></div>
+            <div id="devanagariInfo" class="scheme-info"></div>
+        </div>
+
+        <!-- Korean Demo -->
+        <div class="demo-section">
+            <h2>🇰🇷 Korean (Hangul) Transliteration</h2>
+            <div class="input-group">
+                <label>Romanization Scheme:</label>
+                <select id="koreanScheme" onchange="updateSchemeInfo('korean')">
+                    <option value="rr">Revised Romanization (Official)</option>
+                    <option value="mr">McCune-Reischauer</option>
+                    <option value="yale">Yale Romanization</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>Korean Text:</label>
+                <textarea id="koreanInput" placeholder="한국어 텍스트를 여기에 입력하세요..."></textarea>
+                <button onclick="transliterateKorean()">Transliterate</button>
+            </div>
+            <div id="koreanResult" class="result"></div>
+            <div id="koreanInfo" class="scheme-info"></div>
+        </div>
+
+        <!-- Thai Demo -->
+        <div class="demo-section">
+            <h2>🇹🇭 Thai Script Transliteration</h2>
+            <div class="input-group">
+                <label>Romanization Scheme:</label>
+                <select id="thaiScheme" onchange="updateSchemeInfo('thai')">
+                    <option value="rtgs">RTGS (Royal Thai General System)</option>
+                    <option value="ala">ALA-LC (with diacritics)</option>
+                    <option value="simplified">Simplified</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>Thai Text:</label>
+                <textarea id="thaiInput" placeholder="พิมพ์ข้อความภาษาไทยที่นี่..."></textarea>
+                <button onclick="transliterateThai()">Transliterate</button>
+            </div>
+            <div id="thaiResult" class="result"></div>
+            <div id="thaiInfo" class="scheme-info"></div>
+        </div>
+
+        <!-- Sample Texts -->
+        <div class="demo-section">
+            <h2>📝 Sample Texts (Click to Test)</h2>
+            <div class="sample-texts">
+                <!-- Devanagari Samples -->
+                <div class="sample-text" onclick="loadSample('devanagari', 'नमस्ते! आप कैसे हैं?')">
+                    <h4>Hindi Greeting</h4>
+                    <div class="sample-original">नमस्ते! आप कैसे हैं?</div>
+                    <div class="sample-romanized">namaste! aap kaise hain?</div>
+                </div>
+                
+                <div class="sample-text" onclick="loadSample('devanagari', 'धन्यवाद और अलविदा')">
+                    <h4>Hindi Thanks</h4>
+                    <div class="sample-original">धन्यवाद और अलविदा</div>
+                    <div class="sample-romanized">dhanyawad aur alvida</div>
+                </div>
+
+                <!-- Korean Samples -->
+                <div class="sample-text" onclick="loadSample('korean', '안녕하세요! 반갑습니다.')">
+                    <h4>Korean Greeting</h4>
+                    <div class="sample-original">안녕하세요! 반갑습니다.</div>
+                    <div class="sample-romanized">annyeonghaseyo! bangapseumnida.</div>
+                </div>
+                
+                <div class="sample-text" onclick="loadSample('korean', '김치와 비빔밥을 좋아해요.')">
+                    <h4>Korean Food</h4>
+                    <div class="sample-original">김치와 비빔밥을 좋아해요.</div>
+                    <div class="sample-romanized">gimchiwa bibimbabeul johahaeyo.</div>
+                </div>
+
+                <!-- Thai Samples -->
+                <div class="sample-text" onclick="loadSample('thai', 'สวัสดีครับ ขอบคุณมากค่ะ')">
+                    <h4>Thai Greeting</h4>
+                    <div class="sample-original">สวัสดีครับ ขอบคุณมากค่ะ</div>
+                    <div class="sample-romanized">sawasdee khrap khob khun maak kha</div>
+                </div>
+                
+                <div class="sample-text" onclick="loadSample('thai', 'ต้มยำกุ้งและผัดไทย')">
+                    <h4>Thai Food</h4>
+                    <div class="sample-original">ต้มยำกุ้งและผัดไทย</div>
+                    <div class="sample-romanized">tom yam kung lae phat thai</div>
+                </div>
+
+                <!-- Mixed Script Sample -->
+                <div class="sample-text" onclick="loadSample('auto', 'Hello नमस्ते 안녕하세요 สวัสดี World!')">
+                    <h4>Mixed Scripts</h4>
+                    <div class="sample-original">Hello नमस्ते 안녕하세요 สวัสดี World!</div>
+                    <div class="sample-romanized">Hello namaste annyeonghaseyo sawasdee World!</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Performance Test -->
+        <div class="demo-section">
+            <h2>⚡ Performance Benchmark</h2>
+            <button onclick="runBenchmark()">Run Performance Test</button>
+            <div id="benchmarkResult" class="result"></div>
+        </div>
+    </div>
+
+    <!-- Load Libraries -->
+    <script src="libs/devanagari-transliterator.js"></script>
+    <script src="libs/korean-transliterator.js"></script>
+    <script src="libs/thai-transliterator.js"></script>
+    <script src="libs/transliterator-suite.js"></script>
+
+    <script>
+        // Initialize transliterator suite
+        const suite = new EnhancedTransliteratorSuite();
+        
+        // Initialize individual transliterators
+        const devanagari = new DevanagariTransliterator('iast');
+        const korean = new KoreanTransliterator('rr');
+        const thai = new ThaiTransliterator('rtgs');
+
+        // Auto-transliteration function
+        function autoTransliterate() {
+            const input = document.getElementById('autoInput').value;
+            const result = document.getElementById('autoResult');
+            const stats = document.getElementById('autoStats');
+            
+            if (!input.trim()) {
+                result.innerHTML = '<span style="color: #999;">Enter some text to transliterate...</span>';
+                return;
+            }
+            
+            try {
+                const startTime = performance.now();
+                const transliterated = suite.autoTransliterate(input);
+                const endTime = performance.now();
+                
+                const analysis = suite.analyzeText(input);
+                
+                result.textContent = transliterated;
+                stats.innerHTML = `
+                    <strong>Analysis:</strong> Detected scripts: ${analysis.detectedScripts.join(', ') || 'none'} | 
+                    Length: ${analysis.length} chars | 
+                    Complexity: ${analysis.estimatedComplexity} | 
+                    Time: ${(endTime - startTime).toFixed(2)}ms
+                `;
+            } catch (error) {
+                result.className = 'result error';
+                result.textContent = 'Error: ' + error.message;
+            }
+        }
+
+        // Devanagari transliteration
+        function transliterateDevanagari() {
+            const input = document.getElementById('devanagariInput').value;
+            const scheme = document.getElementById('devanagariScheme').value;
+            const result = document.getElementById('devanagariResult');
+            
+            if (!input.trim()) {
+                result.innerHTML = '<span style="color: #999;">Enter Devanagari text...</span>';
+                return;
+            }
+            
+            try {
+                devanagari.setScheme(scheme);
+                const transliterated = devanagari.transliterate(input);
+                result.textContent = transliterated;
+                result.className = 'result';
+            } catch (error) {
+                result.className = 'result error';
+                result.textContent = 'Error: ' + error.message;
+            }
+        }
+
+        // Korean transliteration
+        function transliterateKorean() {
+            const input = document.getElementById('koreanInput').value;
+            const scheme = document.getElementById('koreanScheme').value;
+            const result = document.getElementById('koreanResult');
+            
+            if (!input.trim()) {
+                result.innerHTML = '<span style="color: #999;">Enter Korean text...</span>';
+                return;
+            }
+            
+            try {
+                korean.setScheme(scheme);
+                const transliterated = korean.transliterate(input);
+                result.textContent = transliterated;
+                result.className = 'result';
+            } catch (error) {
+                result.className = 'result error';
+                result.textContent = 'Error: ' + error.message;
+            }
+        }
+
+        // Thai transliteration
+        function transliterateThai() {
+            const input = document.getElementById('thaiInput').value;
+            const scheme = document.getElementById('thaiScheme').value;
+            const result = document.getElementById('thaiResult');
+            
+            if (!input.trim()) {
+                result.innerHTML = '<span style="color: #999;">Enter Thai text...</span>';
+                return;
+            }
+            
+            try {
+                thai.setScheme(scheme);
+                const transliterated = thai.transliterate(input);
+                result.textContent = transliterated;
+                result.className = 'result';
+            } catch (error) {
+                result.className = 'result error';
+                result.textContent = 'Error: ' + error.message;
+            }
+        }
+
+        // Update scheme information
+        function updateSchemeInfo(script) {
+            let transliterator, infoElement;
+            
+            switch (script) {
+                case 'devanagari':
+                    transliterator = devanagari;
+                    infoElement = document.getElementById('devanagariInfo');
+                    break;
+                case 'korean':
+                    transliterator = korean;
+                    infoElement = document.getElementById('koreanInfo');
+                    break;
+                case 'thai':
+                    transliterator = thai;
+                    infoElement = document.getElementById('thaiInfo');
+                    break;
+            }
+            
+            if (transliterator && transliterator.getSchemeInfo) {
+                const info = transliterator.getSchemeInfo();
+                infoElement.innerHTML = `
+                    <strong>${info.name}:</strong> ${info.description} 
+                    ${info.official ? '(Official)' : '(Academic)'} 
+                    ${info.diacritics ? '• Uses diacritics' : '• No diacritics'}
+                `;
+            }
+        }
+
+        // Load sample text
+        function loadSample(type, text) {
+            if (type === 'auto') {
+                document.getElementById('autoInput').value = text;
+                autoTransliterate();
+            } else if (type === 'devanagari') {
+                document.getElementById('devanagariInput').value = text;
+                transliterateDevanagari();
+            } else if (type === 'korean') {
+                document.getElementById('koreanInput').value = text;
+                transliterateKorean();
+            } else if (type === 'thai') {
+                document.getElementById('thaiInput').value = text;
+                transliterateThai();
+            }
+        }
+
+        // Run performance benchmark
+        function runBenchmark() {
+            const result = document.getElementById('benchmarkResult');
+            result.innerHTML = 'Running benchmark...';
+            
+            setTimeout(() => {
+                try {
+                    const testText = 'नमस्ते विश्व 안녕하세요 세계 สวัสดีโลก';
+                    const benchmark = suite.benchmark(testText, 1000);
+                    
+                    let output = '<strong>Performance Results (1000 iterations):</strong><br>';
+                    Object.entries(benchmark).forEach(([key, value]) => {
+                        if (value.averageTime) {
+                            output += `${key}: ${value.averageTime.toFixed(3)}ms avg, ${value.totalTime.toFixed(1)}ms total<br>`;
+                        }
+                    });
+                    
+                    const stats = suite.getStatistics();
+                    output += `<br><strong>Library Statistics:</strong><br>`;
+                    output += `Transliterators: ${stats.totalTransliterators} | `;
+                    output += `Word mappings: ${stats.totalWordMappings} | `;
+                    output += `Scripts: ${stats.supportedScripts.join(', ')}`;
+                    
+                    result.innerHTML = output;
+                } catch (error) {
+                    result.className = 'result error';
+                    result.textContent = 'Benchmark error: ' + error.message;
+                }
+            }, 100);
+        }
+
+        // Initialize scheme info on page load
+        window.onload = function() {
+            updateSchemeInfo('devanagari');
+            updateSchemeInfo('korean');
+            updateSchemeInfo('thai');
+        };
+    </script>
+</body>
+</html>

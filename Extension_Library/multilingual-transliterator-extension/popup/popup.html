@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multilingual Transliterator</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <div class="popup-container">
+        <!-- Header -->
+        <div class="popup-header">
+            <div class="header-title">
+                <span class="header-icon">🌍</span>
+                <h1>Enhanced Multilingual Transliterator</h1>
+                <span class="version-badge">v2.0 - 9 Languages</span>
+            </div>
+            <div class="header-controls">
+                <button id="toggleExtension" class="toggle-btn" title="Toggle extension">
+                    <span class="toggle-icon">⚡</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Status Bar -->
+        <div class="status-bar" id="statusBar">
+            <div class="status-indicator" id="statusIndicator">
+                <span class="status-dot"></span>
+                <span class="status-text">Active</span>
+            </div>
+            <div class="current-site" id="currentSite">
+                <span class="site-icon">🌐</span>
+                <span class="site-name">Loading...</span>
+            </div>
+        </div>
+
+        <!-- Language Controls -->
+        <div class="section">
+            <h2 class="section-title">
+                <span class="section-icon">🔤</span>
+                Supported Writing Systems (9)
+            </h2>
+            
+            <div class="language-list">
+                <!-- Arabic -->
+                <div class="language-item" data-language="arabic">
+                    <div class="language-info">
+                        <div class="language-header">
+                            <span class="language-flag">🕌</span>
+                            <span class="language-name">Arabic</span>
+                            <span class="language-native">العربية</span>
+                            <span class="language-variants">Persian • Urdu</span>
+                        </div>
+                        <div class="language-controls">
+                            <select class="system-select" data-language="arabic">
+                                <option value="standard">Standard</option>
+                                <option value="ala">ALA-LC</option>
+                                <option value="bgn">BGN/PCGN</option>
+                                <option value="iso">ISO 233</option>
+                            </select>
+                            <label class="toggle-switch">
+                                <input type="checkbox" data-language="arabic" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Russian -->
+                <div class="language-item" data-language="russian">
+                    <div class="language-info">
+                        <div class="language-header">
+                            <span class="language-flag">🇷🇺</span>
+                            <span class="language-name">Russian</span>
+                            <span class="language-native">Русский</span>
+                            <span class="language-variants">Bulgarian • Serbian</span>
+                        </div>
+                        <div class="language-controls">
+                            <select class="system-select" data-language="russian">
+                                <option value="bgn">BGN/PCGN</option>
+                                <option value="iso">ISO 9</option>
+                                <option value="gost">GOST</option>
+                                <option value="simplified">Simplified</option>
+                            </select>
+                            <label class="toggle-switch">
+                                <input type="checkbox" data-language="russian" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Japanese -->
+                <div class="language-item" data-language="japanese">
+                    <div class="language-info">
+                        <div class="language-header">
+                            <span class="language-flag">🗾</span>
+                            <span class="language-name">Japanese</span>
+                            <span class="language-native">日本語</span>
+                            <span class="language-variants">Hiragana • Katakana</span>
+                        </div>
+                        <div class="language-controls">
+                            <select class="system-select" data-language="japanese">
+                                <option value="hepburn">Hepburn</option>
+                                <option value="kunrei">Kunrei-shiki</option>
+                                <option value="nihon">Nihon-shiki</option>
+                            </select>
+                            <label class="toggle-switch">
+                                <input type="checkbox" data-language="japanese" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chinese -->
+                <div class="language-item" data-language="chinese">
+                    <div class="language-info">
+                        <div class="language-header">
+                            <span class="language-flag">🇨🇳</span>
+                            <span class="language-name">Chinese</span>
+                            <span class="language-native">中文</span>
+                            <span class="language-variants">Simplified • Traditional</span>
+                        </div>
+                        <div class="language-controls">
+                            <select class="system-select" data-language="chinese">
+                                <option value="pinyin">Pinyin</option>
+                                <option value="wade">Wade-Giles</option>
+                                <option value="zhuyin">Zhuyin</option>
+                                <option value="simplified">Simplified</option>
+                            </select>
+                            <label class="toggle-switch">
+                                <input type="checkbox" data-language="chinese" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Korean -->
+                <div class="language-item" data-language="korean">
+                    <div class="language-info">
+                        <div class="language-header">
+                            <span class="language-flag">��</span>
+                            <span class="language-name">Korean</span>
+                            <span class="language-native">한국어</span>
+                            <span class="language-variants">Hangul syllables</span>
+                        </div>
+                        <div class="language-controls">
+                            <select class="system-select" data-language="korean">
+                                <option value="rr">Revised Romanization</option>
+                                <option value="mr">McCune-Reischauer</option>
+                                <option value="yale">Yale</option>
+                            </select>
+                            <label class="toggle-switch">
+                                <input type="checkbox" data-language="korean" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hindi -->
+                <div class="language-item" data-language="hindi">
+                    <div class="language-info">
+                        <div class="language-header">
+                            <span class="language-flag">🇮🇳</span>
+                            <span class="language-name">Hindi</span>
+                            <span class="language-native">हिन्दी</span>
+                            <span class="language-variants">Devanagari script</span>
+                        </div>
+                        <div class="language-controls">
+                            <select class="system-select" data-language="hindi">
+                                <option value="iast">IAST</option>
+                                <option value="harvard">Harvard-Kyoto</option>
+                                <option value="simplified">Simplified</option>
+                            </select>
+                            <label class="toggle-switch">
+                                <input type="checkbox" data-language="hindi" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Greek -->
+                <div class="language-item" data-language="greek">
+                    <div class="language-info">
+                        <div class="language-header">
+                            <span class="language-flag">🇬🇷</span>
+                            <span class="language-name">Greek</span>
+                            <span class="language-native">Ελληνικά</span>
+                            <span class="language-variants">Modern with diacritics</span>
+                        </div>
+                        <div class="language-controls">
+                            <select class="system-select" data-language="greek">
+                                <option value="modern">Modern Greek</option>
+                                <option value="classical">Classical</option>
+                                <option value="beta">Beta Code</option>
+                            </select>
+                            <label class="toggle-switch">
+                                <input type="checkbox" data-language="greek" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hebrew -->
+                <div class="language-item" data-language="hebrew">
+                    <div class="language-info">
+                        <div class="language-header">
+                            <span class="language-flag">🇮🇱</span>
+                            <span class="language-name">Hebrew</span>
+                            <span class="language-native">עברית</span>
+                            <span class="language-variants">Hebrew with nikud</span>
+                        </div>
+                        <div class="language-controls">
+                            <select class="system-select" data-language="hebrew">
+                                <option value="academic">Academic</option>
+                                <option value="sbl">SBL</option>
+                                <option value="simplified">Simplified</option>
+                            </select>
+                            <label class="toggle-switch">
+                                <input type="checkbox" data-language="hebrew" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Thai -->
+                <div class="language-item" data-language="thai">
+                    <div class="language-info">
+                        <div class="language-header">
+                            <span class="language-flag">🇹🇭</span>
+                            <span class="language-name">Thai</span>
+                            <span class="language-native">ไทย</span>
+                            <span class="language-variants">Thai with tone marks</span>
+                        </div>
+                        <div class="language-controls">
+                            <select class="system-select" data-language="thai">
+                                <option value="rtgs">RTGS</option>
+                                <option value="ala">ALA-LC</option>
+                                <option value="simplified">Simplified</option>
+                            </select>
+                            <label class="toggle-switch">
+                                <input type="checkbox" data-language="thai" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Display Options -->
+        <div class="section">
+            <h2 class="section-title">
+                <span class="section-icon">⚙️</span>
+                Display Options
+            </h2>
+            
+            <div class="option-group">
+                <label class="option-label">Display Mode</label>
+                <select id="displayMode" class="option-select">
+                    <option value="hover">Hover Tooltip</option>
+                    <option value="inline">Inline Display</option>
+                    <option value="popup">Click Popup</option>
+                </select>
+            </div>
+
+            <div class="option-group">
+                <label class="option-label">Detection Sensitivity</label>
+                <select id="sensitivity" class="option-select">
+                    <option value="low">Low (High confidence only)</option>
+                    <option value="medium">Medium (Balanced)</option>
+                    <option value="high">High (Detect everything)</option>
+                </select>
+            </div>
+
+            <div class="option-group">
+                <label class="option-label">
+                    <input type="checkbox" id="autoDetection" checked>
+                    <span class="checkmark"></span>
+                    Auto-detect languages
+                </label>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="section">
+            <h2 class="section-title">
+                <span class="section-icon">⚡</span>
+                Quick Actions
+            </h2>
+            
+            <div class="action-buttons">
+                <button class="action-btn" id="toggleSite">
+                    <span class="btn-icon">🚫</span>
+                    <span class="btn-text">Toggle Site</span>
+                </button>
+                
+                <button class="action-btn" id="clearCache">
+                    <span class="btn-icon">🗑️</span>
+                    <span class="btn-text">Clear Cache</span>
+                </button>
+                
+                <button class="action-btn" id="openOptions">
+                    <span class="btn-icon">⚙️</span>
+                    <span class="btn-text">Options</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Statistics -->
+        <div class="section" id="statsSection">
+            <h2 class="section-title">
+                <span class="section-icon">📊</span>
+                Current Page Stats
+            </h2>
+            
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-value" id="detectedTexts">0</span>
+                    <span class="stat-label">Detected Texts</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value" id="transliterations">0</span>
+                    <span class="stat-label">Transliterations</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value" id="languages">0</span>
+                    <span class="stat-label">Languages</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="popup-footer">
+            <div class="footer-info">
+                <span class="version">v2.0.0</span>
+                <span class="separator">•</span>
+                <span class="language-count">9 Writing Systems</span>
+                <span class="separator">•</span>
+                <a href="#" id="helpLink" class="help-link">Help</a>
+                <span class="separator">•</span>
+                <a href="#" id="feedbackLink" class="feedback-link">Feedback</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>
